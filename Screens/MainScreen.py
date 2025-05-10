@@ -1,3 +1,4 @@
+from Screens.ProductScreen import ProductScreen
 import os
 
 
@@ -25,14 +26,14 @@ class MainScreen:
 
         match selection:
             case '1':
-                self.screen_manager.current = 'product_screen'
-            case '2':
-                self.screen_manager.current = 'costumer_screen'
-            case '3':
-                self.screen_manager.current = 'order_screen'
+                ProductScreen().start()
+            # case '2':
+            #     self.screen_manager.current = 'costumer_screen'
+            # case '3':
+            #     self.screen_manager.current = 'order_screen'
             case '4':
+                os.system('cls' if os.name == 'nt' else 'clear')
                 exit()
-            case _:
-                print('Opção inválida')
+            # case _:
+            #     print('Opção inválida')
 
-        return selection

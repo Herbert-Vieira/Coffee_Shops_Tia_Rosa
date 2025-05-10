@@ -1,7 +1,5 @@
 from Entities.Product import Product
 from Repository.ProductRepository import ProductRepository
-from Screens.MainScreen import MainScreen
-import keyboard
 import os
 
 
@@ -27,8 +25,6 @@ class ProductScreen:
 
         self.get_options()
 
-        keyboard.add_hotkey('esc', lambda: MainScreen.start())
-
     def get_options(self):
         selection = input('Selecione uma opção: ')
 
@@ -42,6 +38,7 @@ class ProductScreen:
             case '4':
                 self.delete_product()
             case '5':
+                from Screens.MainScreen import MainScreen
                 MainScreen.start()
             case _:
                 print('Opção inválida')
@@ -55,21 +52,18 @@ class ProductScreen:
         name = input('Digite o nome do produto: ')
         price = float(input('Digite o preço do produto: '))
 
-        if id == '' or name == '' or price == '':
-            print('Campos obrigatórios vazios')
-            keyboard.wait()
-            return
+        try:
+            product = Product(id, name, price)
 
-        if isinstance(id, int) is False or isinstance(name, str) is False or isinstance(price, float) is False:
-            print('Campos inválidos')
-            keyboard.wait()
-            return
+            self.repository.create(product)
 
-        product = Product(id, name, price)
+            print('Produto cadastrado com sucesso')
+            input("Pressione Enter para continuar...")
 
-        self.repository.create(product)
+        except Exception as e:
+            print(e)
+            input("Pressione Enter para continuar...")
 
-        print('Produto cadastrado com sucesso')
         self.start()
 
     def list_products(self):
@@ -78,7 +72,7 @@ class ProductScreen:
         print('--------------------------')
         self.repository.read()
         print()
-        keyboard.wait()
+        input("Pressione Enter para continuar...")
         self.start()
 
     def update_product(self):
@@ -89,33 +83,26 @@ class ProductScreen:
         print()
         self.repository.read()
         print()
-        id = int(input('Digite o id do produto que deseja atualizar: '))
-
-        if isinstance(id, int) is False:
-            print('Id inválido')
-            keyboard.wait()
-            return
-        print()
+        id = input('Digite o id do produto que deseja atualizar: ')
 
         name = input('Digite o nome do produto: ')
-        price = float(input('Digite o preço do produto: '))
+        price = input('Digite o preço do produto: ')
         print()
 
-        if id == '' or name == '' or price == '':
-            print('Campos obrigatórios vazios')
-            keyboard.wait()
+        try:
+            product = Product(int(id), name, float(price))
+
+            self.repository.update(int(id), product)
+
+            print('Produto atualizado com sucesso')
+
+            input("Pressione Enter para continuar...")
+
+        except Exception as e:
+            print(e)
+            input("Pressione Enter para continuar...")
             return
 
-        if isinstance(name, str) is False or isinstance(price, float) is False:
-            print('Campos inválidos')
-            keyboard.wait()
-            return
-
-        product = Product(id, name, price)
-
-        self.repository.update(id, product)
-
-        print('Produto atualizado com sucesso')
         self.start()
 
     def delete_product(self):
@@ -130,7 +117,7 @@ class ProductScreen:
 
         if isinstance(id, int) is False:
             print('Id inválido')
-            keyboard.wait()
+            input("Pressione Enter para continuar...")
             return
 
         self.repository.delete(id)
