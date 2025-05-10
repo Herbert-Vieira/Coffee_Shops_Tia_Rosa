@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Café Expresso",
+        "price": 6.50
+    },
+    {
+        "id": 2,
+        "name": "Cappuccino",
+        "price": 8.00
+    },
+    {
+        "id": 3,
+        "name": "Pão de Queijo",
+        "price": 5.00
+    },
+    {
+        "id": 4,
+        "name": "Torrada com Manteiga",
+        "price": 4.50
+    },
+    {
+        "id": 5,
+        "name": "Suco de Laranja",
+        "price": 7.00
+    }
+]

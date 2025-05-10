@@ -1,25 +1,26 @@
-from Client import Client
+from Entities.Costumer import Costumer
 from OrderItem import OrderItem
 from datetime import datetime
+
 
 class Order:
     def __init__(
         self,
         order_id: int,
-        client: Client,
+        costumer: Costumer,
         moment: datetime
     ):
         self.order_id = order_id
-        self.client = client
+        self.costumer = costumer
         self.moment = moment
         self.order_itens: list[OrderItem] = []
-    
+
     def add_order_item(self, order_item: OrderItem):
         self.order_itens.append(order_item)
-    
+
     def remove_order_item(self, order_item: OrderItem):
         self.order_itens.remove(order_item)
-        
+
     def total(self):
         total = 0
         for order_item in self.order_itens:
@@ -27,5 +28,7 @@ class Order:
         return total
 
     def __str__(self):
-        return f'Order: {self.order_id}, Client: {self.client.name}, Moment: {self.moment}, Total: {self.total()}'
-        
+        return (
+            f'Order: {self.order_id}, Client: {self.costumer.name}, '
+            f'Moment: {self.moment}, Total: {self.total()}'
+        )
