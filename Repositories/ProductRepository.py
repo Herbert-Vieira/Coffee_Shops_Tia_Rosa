@@ -10,26 +10,26 @@ class ProductRepository:
     def create(self, product: Product):
         # Carrega os dados existentes
         try:
-            with open(self.file, 'r') as f:
+            with open(self.file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
         except FileNotFoundError:
             data = []  # Se o arquivo não existir, cria uma lista vazia
 
         # Verifica se o ID já existe
         for p in data:
-            if p['id'] == product.id:
+            if p['id'] == product.product_id:
                 os.system('cls' if os.name == 'nt' else 'clear')
-                raise Exception('Erro: ID já existe')
+                raise ValueError('Erro: Id já existe')
 
         # Adiciona o novo produto
         data.append({
-            'id': product.id,
+            'id': product.product_id,
             'name': product.name,
             'price': product.price
         })
 
         # Salva os dados atualizados de volta no arquivo
-        with open(self.file, 'w') as f:
+        with open(self.file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
 
     def read(self):
@@ -44,31 +44,31 @@ class ProductRepository:
                 )
                 print(product)
 
-    def update(self, id: int, product: Product):
-        with open(self.file, 'r') as f:
+    def update(self, product_id: int, product: Product):
+        with open(self.file, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
         # Atualiza o produto com o id especificado
         for idx, p in enumerate(data):
-            if p['id'] == id:
+            if p['id'] == product_id:
                 data[idx] = {
-                    'id': product.id,
+                    'id': product.product_id,
                     'name': product.name,
                     'price': product.price
                 }
                 break
 
         # Salva os dados atualizados de volta no arquivo
-        with open(self.file, 'w') as f:
+        with open(self.file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
 
-    def delete(self, id: int):
-        with open(self.file, 'r') as f:
+    def delete(self, product_id: int):
+        with open(self.file, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
         # Remove o produto com o id especificado
-        data = [p for p in data if p['id'] != id]
+        data = [p for p in data if p['id'] != product_id]
 
         # Salva os dados atualizados de volta no arquivo
-        with open(self.file, 'w') as f:
+        with open(self.file, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)

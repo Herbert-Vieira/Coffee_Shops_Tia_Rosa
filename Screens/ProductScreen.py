@@ -1,9 +1,15 @@
-from Entities.Product import Product
-from Repository.ProductRepository import ProductRepository
+"""
+Tela de gerenciamento de produtos
+"""
 import os
+from Entities.Product import Product
+from Repositories.ProductRepository import ProductRepository
 
 
 class ProductScreen:
+    """
+    Tela de gerenciamento de produtos
+    """
     def __init__(self):
         self.repository = ProductRepository()
 
@@ -42,18 +48,25 @@ class ProductScreen:
                 MainScreen.start()
             case _:
                 print('Opção inválida')
+                input("Pressione Enter para continuar...")
+                self.start()
 
     def create_product(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Cadastro de produto')
         print('--------------------------')
+        print()
 
-        id = int(input('Digite o id do produto: '))
+        product_id = input('Digite o id do produto: ')
         name = input('Digite o nome do produto: ')
-        price = float(input('Digite o preço do produto: '))
+        price = input('Digite o preço do produto: ')
 
         try:
-            product = Product(id, name, price)
+            product = Product(
+                int(product_id),
+                name,
+                float(price)
+            )
 
             self.repository.create(product)
 
@@ -113,14 +126,16 @@ class ProductScreen:
         print()
         self.repository.read()
         print()
-        id = int(input('Digite o id do produto que deseja remover: '))
+        try:
+            product_id = int(input('Digite o id do produto que deseja remover: '))
 
-        if isinstance(id, int) is False:
-            print('Id inválido')
+            self.repository.delete(product_id)
+
+            print('Produto removido com sucesso')
             input("Pressione Enter para continuar...")
-            return
 
-        self.repository.delete(id)
+        except Exception as e:
+            print(e)
+            input("Pressione Enter para continuar...")
 
-        print('Produto removido com sucesso')
         self.start()

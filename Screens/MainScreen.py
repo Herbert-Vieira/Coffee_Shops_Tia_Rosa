@@ -1,10 +1,20 @@
-from Screens.ProductScreen import ProductScreen
+"""
+Tela principal do sistema.
+"""
 import os
+from Screens.CustomerScreen import CustomerScreen
+from Screens.ProductScreen import ProductScreen
 
 
 class MainScreen:
+    """
+    Classe que representa a Tela principal do sistema.
+    """
     @staticmethod
     def start():
+        """
+        Inicializa a tela principal.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
 
         text = """
@@ -22,18 +32,20 @@ class MainScreen:
 
     @staticmethod
     def get_options():
+        """
+        Funcao que mostra as opcoes e Direciona para as telas do sistema.
+        """
         selection = input('Selecione uma opção: ')
 
         match selection:
             case '1':
                 ProductScreen().start()
-            # case '2':
-            #     self.screen_manager.current = 'costumer_screen'
+            case '2':
+                CustomerScreen().start()
             # case '3':
             #     self.screen_manager.current = 'order_screen'
             case '4':
                 os.system('cls' if os.name == 'nt' else 'clear')
                 exit()
-            # case _:
-            #     print('Opção inválida')
-
+            case _:
+                print('Opção inválida')

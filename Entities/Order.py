@@ -1,5 +1,5 @@
-from Entities.Costumer import Costumer
 from OrderItem import OrderItem
+from Entities.Customer import Customer
 from datetime import datetime
 
 
@@ -7,11 +7,11 @@ class Order:
     def __init__(
         self,
         order_id: int,
-        costumer: Costumer,
+        customer: Customer,
         moment: datetime
     ):
         self.order_id = order_id
-        self.costumer = costumer
+        self.customer = customer
         self.moment = moment
         self.order_itens: list[OrderItem] = []
 
@@ -29,6 +29,6 @@ class Order:
 
     def __str__(self):
         return (
-            f'Order: {self.order_id}, Client: {self.costumer.name}, '
+            f'Order: {self.order_id}, Client: {self.customer.name}, '
             f'Moment: {self.moment}, Total: {self.total()}'
         )
