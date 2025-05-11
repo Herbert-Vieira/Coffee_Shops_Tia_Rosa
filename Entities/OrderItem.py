@@ -1,4 +1,4 @@
-from Product import Product
+from Entities.Product import Product
 
 
 class OrderItem:
@@ -11,6 +11,6 @@ class OrderItem:
 
     def __str__(self):
         return (
-            f'{self.product.name}, {self.product.price}, '
-            f'Quantidade: {self.quantity}, Subtotal: {self.sub_total()}'
+            f'Produto: {self.product.name} | Preço: {self.product.price:.2f} | '
+            f'Quantidade: {self.quantity} | Subtotal: {self.sub_total():.2f}'
         )

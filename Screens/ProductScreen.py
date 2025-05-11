@@ -57,15 +57,14 @@ class ProductScreen:
         print('--------------------------')
         print()
 
-        product_id = input('Digite o id do produto: ')
         name = input('Digite o nome do produto: ')
         price = input('Digite o preço do produto: ')
 
         try:
             product = Product(
-                int(product_id),
-                name,
-                float(price)
+                product_id=0,
+                name=name,
+                price=float(price)
             )
 
             self.repository.create(product)

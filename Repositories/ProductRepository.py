@@ -1,6 +1,6 @@
-from Entities.Product import Product
-import json
 import os
+import json
+from Entities.Product import Product
 
 
 class ProductRepository:
@@ -15,11 +15,13 @@ class ProductRepository:
         except FileNotFoundError:
             data = []  # Se o arquivo não existir, cria uma lista vazia
 
-        # Verifica se o ID já existe
+        # Verifica o último ID cadastrado
+        last_id = 0
         for p in data:
-            if p['id'] == product.product_id:
-                os.system('cls' if os.name == 'nt' else 'clear')
-                raise ValueError('Erro: Id já existe')
+            if p['id'] > last_id:
+                last_id = p['id']
+
+        product.product_id = last_id + 1
 
         # Adiciona o novo produto
         data.append({
@@ -44,6 +46,19 @@ class ProductRepository:
                 )
                 print(product)
 
+    def get_product_by_id(self, product_id: int) ->  Product:
+        with open(self.file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        for p in data:
+            if p['id'] == product_id:
+                product = Product(
+                    int(p['id']),
+                    p['name'],
+                    float(p['price']),
+                )
+                return product
+
     def update(self, product_id: int, product: Product):
         with open(self.file, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -67,7 +82,10 @@ class ProductRepository:
             data = json.load(f)
 
         # Remove o produto com o id especificado
-        data = [p for p in data if p['id'] != product_id]
+        for idx, p in enumerate(data):
+            if p['id'] == product_id:
+                data.pop(idx)
+                break
 
         # Salva os dados atualizados de volta no arquivo
         with open(self.file, 'w', encoding='utf-8') as f:

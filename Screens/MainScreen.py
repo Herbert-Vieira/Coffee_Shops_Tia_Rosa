@@ -2,6 +2,7 @@
 Tela principal do sistema.
 """
 import os
+from Screens.OrderScreen import OrderScreen
 from Screens.CustomerScreen import CustomerScreen
 from Screens.ProductScreen import ProductScreen
 
@@ -42,8 +43,8 @@ class MainScreen:
                 ProductScreen().start()
             case '2':
                 CustomerScreen().start()
-            # case '3':
-            #     self.screen_manager.current = 'order_screen'
+            case '3':
+                OrderScreen().start()
             case '4':
                 os.system('cls' if os.name == 'nt' else 'clear')
                 exit()

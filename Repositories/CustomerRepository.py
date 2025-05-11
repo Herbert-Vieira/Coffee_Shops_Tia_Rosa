@@ -27,11 +27,13 @@ class CustomerRepository:
         except FileNotFoundError:
             data = []  # Se o arquivo não existir, cria uma lista vazia
 
-        # Verifica se o ID já existe
+        # Verifica o último ID utilizado
+        last_id = 0
         for c in data:
-            if c['id'] == costumer.customer_id:
-                os.system('cls' if os.name == 'nt' else 'clear')
-                raise ValueError('Erro: ID já existe')
+            if c['id'] > last_id:
+                last_id = c['id']
+
+        costumer.customer_id = last_id + 1
 
         # Adiciona o novo cliente
         data.append({
@@ -58,6 +60,24 @@ class CustomerRepository:
                     c['email'],
                 )
                 print(costumer)
+
+    def get_customer_by_id(self, customer_id: int) -> Customer:
+        """
+        Retorna um cliente pelo id
+        """
+        with open(self.file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        for c in data:
+            if c['id'] == customer_id:
+                customer = Customer(
+                    int(c['id']),
+                    c['name'],
+                    c['email'],
+                )
+                return customer
+
+        raise ValueError(f"Cliente com Id {customer_id} não encontrado")
 
     def update(self, customer_id: int, customer: Customer):
         """

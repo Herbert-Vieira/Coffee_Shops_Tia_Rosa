@@ -59,15 +59,15 @@ class CustomerScreen:
         print('Cadastro de cliente')
         print('--------------------------')
         print()
-        customer_id = input('Digite o Id do cliente: ')
+
         name = input('Digite o nome do cliente: ')
         email = input('Digite o email do cliente: ')
         print()
         try:
             customer = Customer(
-                int(customer_id),
-                name,
-                email
+                customer_id=0,
+                name=name,
+                email=email
             )
 
             self.repository.create(customer)

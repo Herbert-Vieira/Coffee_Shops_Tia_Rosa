@@ -21,12 +21,7 @@
     },
     {
         "id": 5,
-        "name": "Elena Garc\u00eda",
+        "name": "Elena Garcia",
         "email": "elena.garcia@example.com"
-    },
-    {
-        "id": 6,
-        "name": "Jo\u00e3o Silva",
-        "email": "joao.silva@gmail.com"
     }
 ]

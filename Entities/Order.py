@@ -1,6 +1,6 @@
-from OrderItem import OrderItem
-from Entities.Customer import Customer
 from datetime import datetime
+from Entities.OrderItem import OrderItem
+from Entities.Customer import Customer
 
 
 class Order:
@@ -28,7 +28,10 @@ class Order:
         return total
 
     def __str__(self):
+        itens_str = '\n\t'.join(str(item) for item in self.order_itens)
         return (
-            f'Order: {self.order_id}, Client: {self.customer.name}, '
-            f'Moment: {self.moment}, Total: {self.total()}'
+            f'Ordem: {self.order_id}, Cliente: {self.customer.name}, '
+            f'Momento: {self.moment}, Total: {self.total():.2f}\n'
+            f'Itens:\n\t{itens_str}'
+            f'\n{"-" * 90}'
         )
