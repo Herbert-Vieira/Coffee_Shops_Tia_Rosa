@@ -1,5 +1,6 @@
 """
-Tela de gerenciamento de pedidos.
+Esse modulo contém a classe OrderScreen,
+responsável por gerenciar as funções de pedidos.
 """
 import os
 from datetime import datetime
@@ -14,12 +15,15 @@ class OrderScreen:
     """
     Tela de gerenciamento de pedidos.
     """
-    def __init__(self):
+    def __init__(self) -> None:
         self.repository = OrderRepository()
         self.product_repository = ProductRepository()
         self.customer_repository = CustomerRepository()
 
-    def start(self):
+    def start(self) -> None:
+        """
+        Inicializa a tela de pedidos.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
 
         text = """
@@ -37,7 +41,10 @@ class OrderScreen:
 
         self.get_options()
 
-    def get_options(self):
+    def get_options(self) -> None:
+        """
+        Funcao que mostra as opções e Direciona para as telas do sistema.
+        """
         selection = input('Selecione uma opção: ')
 
         match selection:
@@ -57,16 +64,21 @@ class OrderScreen:
                 input("Pressione Enter para continuar...")
                 self.start()
 
-    def create_order(self):
+    def create_order(self) -> None:
+        """
+        Funcao que cadastra um pedido.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Cadastro de pedido')
         print('--------------------------')
         print('Lista de clientes')
         print()
-        self.customer_repository.read()
+        self.customer_repository.read_all()
         print()
         customer_id = input('Digite o id do cliente: ')
-        customer = self.customer_repository.get_customer_by_id(int(customer_id))
+        customer = self.customer_repository.get_customer_by_id(
+            int(customer_id)
+        )
         print()
         print('Lista de produtos')
         print()
@@ -84,7 +96,9 @@ class OrderScreen:
             quantity = input('Digite a quantidade: ')
             print()
 
-            product = self.product_repository.get_product_by_id(int(product_id))
+            product = self.product_repository.get_product_by_id(
+                int(product_id)
+            )
             order_item = OrderItem(
                 product=product,
                 quantity=int(quantity)
@@ -108,7 +122,10 @@ class OrderScreen:
 
         self.start()
 
-    def list_orders(self):
+    def list_orders(self) -> None:
+        """
+        Funcao que lista os pedidos.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Lista de pedidos')
         print('--------------------------')
@@ -116,7 +133,10 @@ class OrderScreen:
         input("Pressione Enter para continuar...")
         self.start()
 
-    def update_order(self):
+    def update_order(self) -> None:
+        """
+        Funcao que atualiza um pedido.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Atualização de pedido')
         print('--------------------------')
@@ -135,9 +155,14 @@ class OrderScreen:
 
             print('\nItens do pedido atual:')
             for item in order.order_itens:
-                print(f"- Produto: {item.product.name}, Quantidade: {item.quantity}")
+                print(
+                    f"- Produto: {item.product.name}, "
+                    f"Quantidade: {item.quantity}"
+                )
 
-            confirm = input('\nDeseja alterar os produtos deste pedido? (s/n): ')
+            confirm = input(
+                '\nDeseja alterar os produtos deste pedido? (s/n): '
+            )
             if confirm.lower() != 's':
                 print('Atualização cancelada.')
                 input("Pressione Enter para continuar...")
@@ -155,7 +180,9 @@ class OrderScreen:
                 quantity = input('Digite a quantidade: ')
                 print()
 
-                product = self.product_repository.get_product_by_id(int(product_id))
+                product = self.product_repository.get_product_by_id(
+                    int(product_id)
+                )
                 order_item = OrderItem(
                     product=product,
                     quantity=int(quantity)
@@ -177,7 +204,10 @@ class OrderScreen:
 
         self.start()
 
-    def delete_order(self):
+    def delete_order(self) -> None:
+        """
+        Funcao que deleta um pedido.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Remoção de pedido')
         print('--------------------------')

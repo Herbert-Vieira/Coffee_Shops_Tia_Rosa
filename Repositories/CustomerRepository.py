@@ -1,9 +1,10 @@
 """
-Repositorio de clientes
-cadastra, atualiza, deleta e lista clientes a partir de um arquivo .json
+Esta classe gerencia o acesso aos dados dos clientes.
+
+Atributos:
+    repository: (str) Caminho para o arquivo de dados dos clientes.
 """
 
-import os
 import json
 from Entities.Customer import Customer
 
@@ -13,21 +14,19 @@ class CustomerRepository:
     Repositorio de clientes
     cadastra, atualiza, deleta e lista clientes a partir de um arquivo .json
     """
-    def __init__(self):
-        self.file = 'src/Database/costumers.json'
+    def __init__(self) -> None:
+        self.repository = 'src/Database/costumers.json'
 
-    def create(self, costumer: Customer):
+    def create(self, costumer: Customer) -> None:
         """
         Cria um novo cliente
         """
-        # Carrega os dados existentes
         try:
-            with open(self.file, 'r', encoding='utf-8') as f:
+            with open(self.repository, 'r', encoding='utf-8') as f:
                 data = json.load(f)
         except FileNotFoundError:
-            data = []  # Se o arquivo não existir, cria uma lista vazia
+            data = []
 
-        # Verifica o último ID utilizado
         last_id = 0
         for c in data:
             if c['id'] > last_id:
@@ -35,22 +34,20 @@ class CustomerRepository:
 
         costumer.customer_id = last_id + 1
 
-        # Adiciona o novo cliente
         data.append({
             'id': costumer.customer_id,
             'name': costumer.name,
             'email': costumer.email
         })
 
-        # Salva os dados atualizados de volta no arquivo
-        with open(self.file, 'w', encoding='utf-8') as f:
+        with open(self.repository, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
 
-    def read(self):
+    def read_all(self) -> None:
         """
         Lista todos os clientes
         """
-        with open(self.file, 'r', encoding='utf-8') as f:
+        with open(self.repository, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
             for c in data:
@@ -65,7 +62,7 @@ class CustomerRepository:
         """
         Retorna um cliente pelo id
         """
-        with open(self.file, 'r', encoding='utf-8') as f:
+        with open(self.repository, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
         for c in data:
@@ -79,14 +76,13 @@ class CustomerRepository:
 
         raise ValueError(f"Cliente com Id {customer_id} não encontrado")
 
-    def update(self, customer_id: int, customer: Customer):
+    def update(self, customer_id: int, customer: Customer) -> None:
         """
-        Atualiza um cliente
+        Atualiza um cliente pelo id
         """
-        with open(self.file, 'r', encoding='utf-8') as f:
+        with open(self.repository, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
-        # Atualiza o cliente com o id especificado
         for idx, c in enumerate(data):
             if c['id'] == customer_id:
                 data[idx] = {
@@ -96,20 +92,17 @@ class CustomerRepository:
                 }
                 break
 
-        # Salva os dados atualizados de volta no arquivo
-        with open(self.file, 'w', encoding='utf-8') as f:
+        with open(self.repository, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
 
-    def delete(self, customer_id: int):
+    def delete(self, customer_id: int) -> None:
         """
-        Deleta um cliente
+        Deleta um cliente pelo id
         """
-        with open(self.file, 'r', encoding='utf-8') as f:
+        with open(self.repository, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
-        # Remove o cliente com o id especificado
         data = [c for c in data if c['id'] != customer_id]
 
-        # Salva os dados atualizados de volta no arquivo
-        with open(self.file, 'w', encoding='utf-8') as f:
+        with open(self.repository, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)

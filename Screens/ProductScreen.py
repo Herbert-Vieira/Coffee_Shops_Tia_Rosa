@@ -1,5 +1,6 @@
 """
-Tela de gerenciamento de produtos
+Esse modulo contém a classe ProductScreen,
+responsável por gerenciar as funções de produtos.
 """
 import os
 from Entities.Product import Product
@@ -10,10 +11,13 @@ class ProductScreen:
     """
     Tela de gerenciamento de produtos
     """
-    def __init__(self):
+    def __init__(self) -> None:
         self.repository = ProductRepository()
 
-    def start(self):
+    def start(self) -> None:
+        """
+        Inicializa a tela de produtos.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
 
         text = """
@@ -31,7 +35,10 @@ class ProductScreen:
 
         self.get_options()
 
-    def get_options(self):
+    def get_options(self) -> None:
+        """
+        Funcao que mostra as opções e Direciona para as telas do sistema.
+        """
         selection = input('Selecione uma opção: ')
 
         match selection:
@@ -51,7 +58,10 @@ class ProductScreen:
                 input("Pressione Enter para continuar...")
                 self.start()
 
-    def create_product(self):
+    def create_product(self) -> None:
+        """
+        Funcao que cadastra um produto.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Cadastro de produto')
         print('--------------------------')
@@ -78,7 +88,10 @@ class ProductScreen:
 
         self.start()
 
-    def list_products(self):
+    def list_products(self) -> None:
+        """
+        Funcao que lista os produtos.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Lista de produtos')
         print('--------------------------')
@@ -87,7 +100,10 @@ class ProductScreen:
         input("Pressione Enter para continuar...")
         self.start()
 
-    def update_product(self):
+    def update_product(self) -> None:
+        """
+        Funcao que atualiza um produto.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Atualização de produto')
         print('--------------------------')
@@ -117,7 +133,10 @@ class ProductScreen:
 
         self.start()
 
-    def delete_product(self):
+    def delete_product(self) -> None:
+        """
+        Funcao que remove um produto.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
         print('Remoção de produto')
         print('--------------------------')
@@ -126,7 +145,9 @@ class ProductScreen:
         self.repository.read()
         print()
         try:
-            product_id = int(input('Digite o id do produto que deseja remover: '))
+            product_id = int(input(
+                'Digite o id do produto que deseja remover: '
+            ))
 
             self.repository.delete(product_id)
 

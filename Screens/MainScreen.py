@@ -12,7 +12,7 @@ class MainScreen:
     Classe que representa a Tela principal do sistema.
     """
     @staticmethod
-    def start():
+    def start() -> None:
         """
         Inicializa a tela principal.
         """
@@ -32,7 +32,7 @@ class MainScreen:
         MainScreen.get_options()
 
     @staticmethod
-    def get_options():
+    def get_options() -> None:
         """
         Funcao que mostra as opcoes e Direciona para as telas do sistema.
         """

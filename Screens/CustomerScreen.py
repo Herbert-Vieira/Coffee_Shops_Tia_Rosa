@@ -1,16 +1,27 @@
 """
-Tela de gerenciamento de clientes
+Esse modulo contém a classe CustomerScreen,
+responsável por gerenciar a função de clientes.
 """
+
 import os
 from Entities.Customer import Customer
 from Repositories.CustomerRepository import CustomerRepository
 
 
 class CustomerScreen:
-    def __init__(self):
+    """
+        Inicializa a classe CustomerScreen.
+
+        Atributos:
+            repository (CustomerRepository): Repositorio de clientes.
+    """
+    def __init__(self) -> None:
         self.repository = CustomerRepository()
 
-    def start(self):
+    def start(self) -> None:
+        """
+        Inicializa a tela de clientes.
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
 
         text = """
@@ -28,7 +39,7 @@ class CustomerScreen:
 
         self.get_options()
 
-    def get_options(self):
+    def get_options(self) -> None:
         """
         Funcao que mostra as opções e Direciona para as telas do sistema.
         """
@@ -51,7 +62,7 @@ class CustomerScreen:
                 input("Pressione Enter para continuar...")
                 self.start()
 
-    def create_customer(self):
+    def create_customer(self) -> None:
         """
         Funcao que cria um novo cliente.
         """
@@ -80,7 +91,7 @@ class CustomerScreen:
 
         self.start()
 
-    def list_customers(self):
+    def list_customers(self) -> None:
         """
         Funcao que lista todos os clientes.
         """
@@ -89,13 +100,13 @@ class CustomerScreen:
         print('--------------------------')
         print()
 
-        self.repository.read()
+        self.repository.read_all()
 
         print()
         input("Pressione Enter para continuar...")
         self.start()
 
-    def update_customer(self):
+    def update_customer(self) -> None:
         """
         Funcao que atualiza um cliente.
         """
@@ -104,7 +115,7 @@ class CustomerScreen:
         print('--------------------------')
         print('Lista de clientes')
         print()
-        self.repository.read()
+        self.repository.read_all()
         print()
         customer_id = input('Digite o id do cliente que deseja atualizar: ')
 
@@ -130,7 +141,7 @@ class CustomerScreen:
 
         self.start()
 
-    def delete_customer(self):
+    def delete_customer(self) -> None:
         """
         Funcao que deleta um cliente.
         """
@@ -139,11 +150,13 @@ class CustomerScreen:
         print('--------------------------')
         print('Lista de clientes')
         print()
-        self.repository.read()
+        self.repository.read_all()
         print()
 
         try:
-            customer_id = int(input('Digite o id do cliente que deseja remover: '))
+            customer_id = int(input(
+                'Digite o id do cliente que deseja remover: '
+            ))
 
             self.repository.delete(int(customer_id))
 

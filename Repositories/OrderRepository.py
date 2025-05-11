@@ -1,9 +1,10 @@
 """
-Repositorio de Pedidos
-cadastra, atualiza, deleta e lista pedidos a partir de um arquivo .json
+Esta classe gerencia o acesso aos dados dos pedidos.
+
+Atributos:
+    repository: (str) Caminho para o arquivo de dados dos pedidos.
 """
 from datetime import datetime
-import os
 import json
 from Entities.Order import Order
 from Entities.OrderItem import OrderItem
@@ -15,19 +16,20 @@ class OrderRepository:
     """
     Repositorio de Pedidos
     Cadastra, atualiza, deleta e lista pedidos a partir de um arquivo .json
-
     """
     def __init__(self):
         self.repository = 'src/Database/orders.json'
 
     def create(self, order: Order) -> None:
+        """
+        Cria um novo pedido
+        """
         try:
             with open(self.repository, 'r', encoding='utf-8') as f:
                 data = json.load(f)
         except FileNotFoundError:
             data = []
 
-        # Verifica o ultimo ID utilizado
         last_id = 0
         for o in data:
             if o['order_id'] > last_id:
@@ -53,6 +55,9 @@ class OrderRepository:
             json.dump(data, f, indent=4)
 
     def read_all(self) -> None:
+        """
+        Lista todos os pedidos
+        """
         with open(self.repository, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
@@ -117,7 +122,12 @@ class OrderRepository:
                     order.add_order_item(item)
                 return order
 
+        raise ValueError(f'Pedido com id {order_id} não encontrado.')
+
     def update(self, order: Order) -> None:
+        """
+        Atualiza um pedido
+        """
         with open(self.repository, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
@@ -141,6 +151,9 @@ class OrderRepository:
             json.dump(data, f, indent=4)
 
     def delete(self, order_id: int) -> None:
+        """
+        Deleta um pedido pelo id
+        """
         with open(self.repository, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
