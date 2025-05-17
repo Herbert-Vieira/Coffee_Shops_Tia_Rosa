@@ -2,26 +2,26 @@
     {
         "id": 1,
         "name": "Alice Johnson",
-        "email": "alice.johnson@example.com"
+        "email": "alice.johnson@gmail.com"
     },
     {
         "id": 2,
         "name": "Bruno Silva",
-        "email": "bruno.silva@example.com"
+        "email": "bruno.silva@gmail.com"
     },
     {
         "id": 3,
         "name": "Carla Mendes",
-        "email": "carla.mendes@example.com"
+        "email": "carla.mendes@gmail.com"
     },
     {
         "id": 4,
         "name": "Daniel Lee",
-        "email": "daniel.lee@example.com"
+        "email": "daniel.lee@gmail.com"
     },
     {
         "id": 5,
         "name": "Elena Garcia",
-        "email": "elena.garcia@example.com"
+        "email": "elena.garcia@gmail.com"
     }
 ]
