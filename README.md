@@ -1,5 +1,4 @@
-# Coffee_Shops_Tia_Rosa
-## Sistema de gerenciamento do Coffee Shops Tia Rosa
+# Sistema de gerenciamento do Coffee Shops Tia Rosa
 
 Sistema foi desenvolvido para atender às necessidades da cafeteria Coffee Shops Tia Rosa, com foco em resolver problemas operacionais como controle de pedidos, organização do cardápio e fidelização de clientes. A aplicação foi criada em Python, com uma interface simples baseada em linha de comando, para facilitar o uso pelos colaboradores que não têm familiaridade com tecnologia.
 
