@@ -30,6 +30,8 @@ class OrderItem:
 
     def __str__(self) -> str:
         return (
-            f'Produto: {self.product.name} | Preço: {self.product.price:.2f} | '
-            f'Quantidade: {self.quantity} | Subtotal: {self.sub_total():.2f}'
+            f'Produto: {self.product.name} | '
+            f'Preço: {self.product.price:.2f} | '
+            f'Quantidade: {self.quantity} | '
+            f'Subtotal: {self.sub_total():.2f}'
         )
